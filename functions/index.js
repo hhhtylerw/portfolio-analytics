@@ -9,10 +9,11 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 });
 
 exports.analytics = functions.https.onRequest((request, response) => {
-    const time = new Date().toLocaleString();
+    const time = new Date().getTime().toString();
 
-    db.collection("analytics").add({
-        "hello": "world1"
+    db.collection("analytics").doc(time).set({
+        "hello": "world1",
+        "ip": request.ip
     })
 
     response.send("Thanks for taking a look ;)");
